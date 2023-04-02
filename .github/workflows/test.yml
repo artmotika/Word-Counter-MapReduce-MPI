@@ -1,0 +1,22 @@
+﻿name: Build and test MPI program
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+jobs:
+  test:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Setup MS MPI
+        shell: pwsh
+        run: |
+          .\script\install_mpi.ps1
+      - name: Build
+        shell: pwsh
+        run: |
+          .\script\build.ps1
+      - name: Run tests
+        shell: pwsh
+        run: |
+          .\script\test.ps1
